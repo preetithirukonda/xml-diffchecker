@@ -14,20 +14,6 @@ base_root = base.getroot()
 new = ET.parse(new_file)
 new_root = new.getroot()
 
-# printing out elements and tags
-'''
-# prints out all the tags
-for elem in base_root:
-    for subelem in elem:
-        print(subelem.tag)
-
-print()
-
-# prints out all data in file
-for elem in base_root:
-    for subelem in elem:
-        print(subelem.text)
-'''
 
 # 3) tags comparison
 # checking to see what file is longer
@@ -40,7 +26,6 @@ else:
 
 # comparing tags and printing out if they are different
 for i in range(length):
-    print()
     base_tag = None
     new_tag = None
     # base file
@@ -63,7 +48,7 @@ for i in range(length):
     if base_tag != new_tag and base_tag is not None and new_tag is not None:
         print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
     elif base_tag == new_tag:
-        print(f"Tags match\nBase tag: {base_tag} \nNew tag: {new_tag}")
+        # print(f"Tags match\nBase tag: {base_tag} \nNew tag: {new_tag}")
         # 3) data comparison
         base_data = None
         new_data = None
@@ -71,7 +56,7 @@ for i in range(length):
         try:  # checking to make sure there is a value
             base_root[0][i].text
         except:  # prints out error
-            print(f"Data does not match\nBase data: {base_data} \nNew data: {new_data}")
+            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
         else:
             base_data = base_root[0][i].text
 
@@ -79,31 +64,21 @@ for i in range(length):
         try:  # checking to make sure there is a value
             new_root[0][i].text
         except:  # prints out error
-            print(f"Data does not match\nBase data: {base_data} \nNew data: {new_data}")
+            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
         else:
             new_data = new_root[0][i].text
 
         # comparison
         if base_data != new_data and base_data is not None and new_data is not None:
-            print(f"Data does not match\nBase data: {base_data} \nNew data: {new_data}")
-        elif base_data == new_data:
-            print(f'Data matches\nData in base: {base_data} \nData in new: {new_data}')
-
-        
-# 3) data comparison
-'''print()
-for elem in base_root:
-    for subelem in elem:
-        print(subelem.text)
-print()
-for elem in new_root:
-    for subelem in elem:
-        print(subelem.text)'''
+            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+        # elif base_data == new_data:
+        # print(f'Data matches\nData in base: {base_data} \nData in new: {new_data}')
+        print()
 
 # 4) flagging deviations
 # 5) summary and output
 
-# EXTRA: printing out elements and tags
+# EXTRA: printing out elements and tags, mainly for testing to get comfortable with the ET module
 '''
 # prints out length
 print(len(base_root[0]))
@@ -125,4 +100,12 @@ for elem in base_root:
     for subelem in elem:
         if elem.tag:
             print(elem.tag)
+#simplest way to print tags and data
+for elem in base_root:
+    for subelem in elem:
+        print(subelem.text)
+print()
+for elem in new_root:
+    for subelem in elem:
+        print(subelem.text)
 '''
