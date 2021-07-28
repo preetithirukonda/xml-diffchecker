@@ -4,8 +4,8 @@ import xml.etree.ElementTree as ET
 base_file = input("Enter the name of the baseline file: ")
 new_file = input("Enter the name of the file to be compared: ")
 
-base_file = 'xml1.xml'
-new_file = 'xml2.xml'
+# base_file = 'ASR9K-SR-ISIS-v662.xml'
+# new_file = 'ASR9K-SR-ISIS-v731.xml'
 
 # 2) parsing the file
 base = ET.parse(base_file)
