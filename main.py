@@ -1,11 +1,12 @@
 import xml.etree.ElementTree as ET
+import csv
 
 # 1) input to the program
 base_file = input("Enter the name of the baseline file: ")
 new_file = input("Enter the name of the file to be compared: ")
 
-# base_file = 'ASR9K-SR-ISIS-v662.xml'
-# new_file = 'ASR9K-SR-ISIS-v731.xml'
+# base_file = 'xml1.xml'
+# new_file = 'xml2.xml'
 
 # 2) parsing the file
 base = ET.parse(base_file)
@@ -14,8 +15,8 @@ base_root = base.getroot()
 new = ET.parse(new_file)
 new_root = new.getroot()
 
-
-# 3) tags comparison
+# 3) tags/data comparison and 4) flagging deviations and 5) summary and output
+num_deviations = 0  # this statement isnt used currently
 # checking to see what file is longer
 if len(base_root[0]) > len(new_root[0]):
     length = len(base_root[0])
@@ -24,59 +25,76 @@ elif len(base_root[0]) < len(new_root[0]):
 else:
     length = len(base_root[0])
 
-# comparing tags and printing out if they are different
-for i in range(length):
-    base_tag = None
-    new_tag = None
-    # base file
-    try:  # checking to make sure there is a value
-        base_root[0][i].tag
-    except:  # prints out error
-        print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
-    else:
-        base_tag = base_root[0][i].tag
+with open('deviations.csv', mode='w') as deviations_file:
+    deviations_writer = csv.writer(deviations_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-    # new file
-    try:  # checking to make sure there is a value
-        new_root[0][i].tag
-    except:  # prints out error
-        print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
-    else:
-        new_tag = new_root[0][i].tag
+    deviations_writer.writerow([f'Comparison of \'{base_file}\' and \'{new_file}\''])
 
-    # comparison
-    if base_tag != new_tag and base_tag is not None and new_tag is not None:
-        print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
-    elif base_tag == new_tag:
-        # print(f"Tags match\nBase tag: {base_tag} \nNew tag: {new_tag}")
-        # 3) data comparison
-        base_data = None
-        new_data = None
+    # comparing tags and printing out if they are different
+    for i in range(length):
+        base_tag = None
+        new_tag = None
         # base file
         try:  # checking to make sure there is a value
-            base_root[0][i].text
+            base_root[0][i].tag
         except:  # prints out error
-            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+            print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
+            deviations_writer.writerow([f'Tags do not match', f'Base tag: {base_tag}', f'New tag: {new_tag}'])
+            num_deviations += 1
         else:
-            base_data = base_root[0][i].text
+            base_tag = base_root[0][i].tag
 
         # new file
         try:  # checking to make sure there is a value
-            new_root[0][i].text
+            new_root[0][i].tag
         except:  # prints out error
-            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+            print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
+            deviations_writer.writerow([f'Tags do not match', f'Base tag: {base_tag}', f'New tag: {new_tag}'])
+            num_deviations += 1
         else:
-            new_data = new_root[0][i].text
+            new_tag = new_root[0][i].tag
 
         # comparison
-        if base_data != new_data and base_data is not None and new_data is not None:
-            print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
-        # elif base_data == new_data:
-        # print(f'Data matches\nData in base: {base_data} \nData in new: {new_data}')
-        print()
+        if base_tag != new_tag and base_tag is not None and new_tag is not None:
+            print(f"Tags do not match\nBase tag: {base_tag} \nNew tag: {new_tag}")
+            deviations_writer.writerow([f'Tags do not match', f'Base tag: {base_tag}', f'New tag: {new_tag}'])
+            num_deviations += 1
+        elif base_tag == new_tag:
+            # print(f"Tags match\nBase tag: {base_tag} \nNew tag: {new_tag}")
+            # 3) data comparison
+            base_data = None
+            new_data = None
+            # base file
+            try:  # checking to make sure there is a value
+                base_root[0][i].text
+            except:  # prints out error
+                print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+                deviations_writer.writerow(
+                    [f'Data does not match', f'Tag: {base_tag}', f'Base data: {base_data}', f'New data: {new_data}'])
+                num_deviations += 1
+            else:
+                base_data = base_root[0][i].text
 
-# 4) flagging deviations
-# 5) summary and output
+            # new file
+            try:  # checking to make sure there is a value
+                new_root[0][i].text
+            except:  # prints out error
+                print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+                deviations_writer.writerow(
+                    [f'Data does not match', f'Tag: {base_tag}', f'Base data: {base_data}', f'New data: {new_data}'])
+                num_deviations += 1
+            else:
+                new_data = new_root[0][i].text
+
+            # comparison
+            if base_data != new_data and base_data is not None and new_data is not None:
+                print(f"Data does not match\nTag: {base_tag}\nBase data: {base_data} \nNew data: {new_data}")
+                deviations_writer.writerow(
+                    [f'Data does not match', f'Tag: {base_tag}', f'Base data: {base_data}', f'New data: {new_data}'])
+                num_deviations += 1
+            # elif base_data == new_data:
+            # print(f'Data matches\nData in base: {base_data} \nData in new: {new_data}')
+            print()
 
 # EXTRA: printing out elements and tags, mainly for testing to get comfortable with the ET module
 '''
