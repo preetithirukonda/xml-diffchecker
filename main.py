@@ -5,8 +5,8 @@ import csv
 base_file = input("Enter the name of the baseline file: ")
 new_file = input("Enter the name of the file to be compared: ")
 
-base_file = 'ASR9K-SR-ISIS-v662.xml'
-new_file = 'ASR9K-SR-ISIS-v731.xml'
+# base_file = 'ASR9K-SR-ISIS-v662.xml'
+# new_file = 'ASR9K-SR-ISIS-v731.xml'
 
 # 2) parsing the file
 base = ET.parse(base_file)
@@ -94,9 +94,9 @@ for i in range(length):
         n_o_tag = n_f_array[i][0]
 
     if b_o_tag != n_o_tag:
-        print('TAGS DONT MATCH')
+        print(f'TAG DEVIATION:\tBase tag: {b_o_tag[0]}\t New tag: {n_o_tag[0]}')
     else:
-        print('TAGS MATCH')
+        print(f'TAGS MATCH:\tBase tag: {b_o_tag[0]}\t New tag: {n_o_tag[0]}')
 
     # to traverse the inner tags and data
     if len(b_f_array[i]) > len(n_f_array[i]):
@@ -105,7 +105,6 @@ for i in range(length):
         i_length = len(n_f_array[i]) - 1
     else:
         i_length = len(b_f_array[i]) - 1
-
 
     n_tags_arr = []
     b_tags_arr = []
@@ -137,24 +136,27 @@ for i in range(length):
                     both_tags.append(n)
                     n_tags_arr.remove(n)
                     b_tags_arr.remove(b)
-    # print(both_tags)
-    # tag deviation
+        # tag deviation
+
+        for x in b_f_array[i]:
+            for y in n_f_array[i]:
+                if x == y:
+                    b_f_array[i].remove(x)
+                    n_f_array[i].remove(y)
+
     for n in n_tags_arr:
         print(f"Tag deviation inside '{b_o_tag[0]}':\nBase tag: None\t New tag: {n}")
     for b in b_tags_arr:
         print(f"Tag deviation inside '{b_o_tag[0]}':\nBase tag: {b}\t New tag: None")
 
-
-
-    # print(n_index, b_index)
-    # if n_index not in b_f_array[i] and n_index is not None:
-    #     print("NOT IN", n_index)
-    #
-    # if b_index not in n_f_array[i] and b_index is not None:
-    #     print("NOT IN", b_index)
+    for a in range(len(b_f_array[i])):
+        for b in range(len(n_f_array[i])):
+            if b_f_array[i][a][0] == n_f_array[i][b][0]:
+                print(
+                    f"Data deviation inside '{b_f_array[i][a][0]}':\nBase data: {b_f_array[i][a][1]}\t New data: {n_f_array[i][b][1]}")
     print()
     print()
 
-# example of how the data is structured in the b_f_array and n_f_array
+# example of how the data is structured in 'b_f_array' and 'n_f_array'
 array = [['outer tag', ['tag', 'data'], ['tag', 'data'], ['tag', 'data'], ['tag', 'data']],
          ['outer tag', ['tag', 'data'], ['tag', 'data'], ['tag', 'data'], ['tag', 'data']]]
