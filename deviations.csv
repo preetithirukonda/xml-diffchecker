@@ -1,0 +1,40 @@
+Comparison of 'SNMPIFINDEX-Baseline.xml' and 'SNMPIFINDEX-Compare.xml'
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 2	New data: 100
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 23	New data: 123
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 24	New data: 124
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 324	New data: 1324
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 17	New data: 117
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 18	New data: 118
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 322	New data: 1322
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 323	New data: 1323
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 11	New data: 111
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 12	New data: 112
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 7	New data: 17
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 8	New data: 18
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 21	New data: 211
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 22	New data: 122
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 4	New data: 41
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 1	New data: 101
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 3	New data: 130
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 5	New data: 145
+TAGS MATCH:	Base tag: IfIndex	New tag: IfIndex
+Data deviation inside 'index':	Base data: 6	New data: 195
+TAG DEVIATION:	Base tag: IfIndex	New tag: None
