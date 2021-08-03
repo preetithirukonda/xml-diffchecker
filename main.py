@@ -7,7 +7,7 @@ new_file = input("Enter the name of the file to be compared: ")
 
 # base_file = 'ASR9K-SR-ISIS-v662.xml'
 # new_file = 'ASR9K-SR-ISIS-v731.xml'
-
+#
 # base_file = 'SNMPIFINDEX-Baseline.xml'
 # new_file = 'SNMPIFINDEX-Compare.xml'
 
@@ -54,9 +54,7 @@ for i in range(len(base_array)):
 # print()
 # for l in b_f_array:
 #     print(l)
-#
-# print()
-# print()
+
 # creating a formatted version of the base array
 n_f_array = []
 for i in range(len(new_array)):
@@ -74,9 +72,7 @@ for i in range(len(new_array)):
 # print()
 # for l in n_f_array:
 #     print(l)
-#
-# print()
-# print()
+
 # writing the output to a csv file
 with open('deviations.csv', mode='w') as deviations_file:
     deviations_writer = csv.writer(deviations_file, delimiter='\t', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -110,17 +106,28 @@ with open('deviations.csv', mode='w') as deviations_file:
             if b_o_tag is None:
                 print(f'TAG DEVIATION:\tBase tag: None\t New tag: {n_o_tag[0]}')
                 deviations_writer.writerow([f'TAG DEVIATION:', f'Base tag: None', f'New tag: {n_o_tag[0]}'])
+                print()
+                print()
             elif n_o_tag is None:
                 print(f'TAG DEVIATION:\tBase tag: {b_o_tag[0]}\t New tag: None')
                 deviations_writer.writerow([f'TAG DEVIATION:', f'Base tag: {b_o_tag[0]}', f'New tag: None'])
+                print()
+                print()
             else:
                 print(f'TAG DEVIATION:\tBase tag: {b_o_tag[0]}\t New tag: {n_o_tag[0]}')
                 deviations_writer.writerow([f'TAG DEVIATION:', f'Base tag: {b_o_tag[0]}', f'New tag: {n_o_tag[0]}'])
+                print()
+                print()
         else:
             print(f'TAGS MATCH:\tBase tag: {b_o_tag[0]}\t New tag: {n_o_tag[0]}')
             deviations_writer.writerow([f'TAGS MATCH:', f'Base tag: {b_o_tag[0]}', f'New tag: {n_o_tag[0]}'])
 
         # to traverse the inner tags and data
+        try:
+            b_f_array[i]
+            n_f_array[i]
+        except:
+            continue
 
         if len(b_f_array[i]) > len(n_f_array[i]):
             i_length = len(b_f_array[i])
@@ -132,11 +139,7 @@ with open('deviations.csv', mode='w') as deviations_file:
         b_tags_arr = []
         both_tags = []
 
-        # print('b_f_array[i]',len(b_f_array[i]))
-        # print('n_f_array[i]',len(n_f_array[i]))
-        # print('i_length', i_length)
         for j in range(i_length):
-            # print(i, j)
             try:
                 b_f_array[i][j][0]
             except:
